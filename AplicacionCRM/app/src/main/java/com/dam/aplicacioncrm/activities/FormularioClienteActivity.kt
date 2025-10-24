@@ -1,6 +1,7 @@
 package com.dam.aplicacioncrm.activities
 
 import android.os.Bundle
+import android.util.Patterns
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.dam.aplicacioncrm.R
 import com.dam.aplicacioncrm.database.DatabaseHelper
 import com.dam.aplicacioncrm.models.Cliente
+import com.dam.aplicacioncrm.utils.ThemePreference
 import com.google.android.material.textfield.TextInputEditText
 
 /**
@@ -29,8 +31,8 @@ class FormularioClienteActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Aplicar el tema guardado
-        com.dam.aplicacioncrm.utils.ThemePreference.applyTheme(
-            com.dam.aplicacioncrm.utils.ThemePreference.getThemeMode(this)
+        ThemePreference.applyTheme(
+            ThemePreference.getThemeMode(this)
         )
 
         super.onCreate(savedInstanceState)
@@ -112,23 +114,43 @@ class FormularioClienteActivity : AppCompatActivity() {
      * Valida y guarda el cliente en la base de datos
      */
     private fun guardarCliente() {
-        // Obtener valores
-        val nombre = etNombre.text.toString().trim()
-        val email = etEmail.text.toString().trim()
-        val telefono = etTelefono.text.toString().trim()
+        // Limpiar errores previos
+        etNombre.error = null
+        etEmail.error = null
+        etTelefono.error = null
 
-        // Crear objeto cliente temporal para validación
+        // Obtener y normalizar valores
+        val nombreRaw = etNombre.text.toString()
+        val emailRaw = etEmail.text.toString()
+        val telefonoRaw = etTelefono.text.toString()
+
+        // Validar nombre
+        if (!validarNombre(nombreRaw)) {
+            return
+        }
+
+        // Validar email
+        if (!validarEmail(emailRaw)) {
+            return
+        }
+
+        // Validar teléfono
+        if (!validarTelefono(telefonoRaw)) {
+            return
+        }
+
+        // Normalizar datos antes de guardar
+        val nombre = nombreRaw.trim()
+        val email = emailRaw.lowercase().trim()
+        val telefono = telefonoRaw.replace(" ", "").replace("-", "")
+
+        // Crear objeto cliente
         val cliente = Cliente(
             id = clienteId ?: 0,
             nombre = nombre,
             email = email,
             telefono = telefono
         )
-
-        // Validar campos
-        if (!validarCliente(cliente)) {
-            return
-        }
 
         // Guardar en base de datos
         val exitoso = if (modoEdicion) {
@@ -139,7 +161,7 @@ class FormularioClienteActivity : AppCompatActivity() {
 
         // Verificar resultado
         if (exitoso) {
-            val mensaje = if (modoEdicion) "Cliente actualizado" else "Cliente guardado"
+            val mensaje = if (modoEdicion) "Cliente actualizado correctamente" else "Cliente guardado correctamente"
             mostrarMensaje(mensaje)
             finish()
             // Transición al volver después de guardar
@@ -150,28 +172,57 @@ class FormularioClienteActivity : AppCompatActivity() {
     }
 
     /**
-     * Valida los datos del cliente
+     * Valida el nombre usando isNotBlank()
      */
-    private fun validarCliente(cliente: Cliente): Boolean {
-        // Verificar campos vacíos
-        if (!cliente.esValido()) {
-            mostrarMensaje("Todos los campos son obligatorios")
+    private fun validarNombre(nombre: String): Boolean {
+        if (nombre.isBlank()) {
+            etNombre.error = "El nombre es obligatorio"
+            etNombre.requestFocus()
+            mostrarMensaje("Por favor, introduce un nombre válido")
+            return false
+        }
+        return true
+    }
+
+    /**
+     * Valida el email usando Patterns.EMAIL_ADDRESS
+     */
+    private fun validarEmail(email: String): Boolean {
+        if (email.isBlank()) {
+            etEmail.error = "El email es obligatorio"
+            etEmail.requestFocus()
+            mostrarMensaje("Por favor, introduce un email")
             return false
         }
 
-        // Validar email
-        if (!cliente.emailEsValido()) {
-            mostrarMensaje("El email debe tener un formato válido (ej: usuario@dominio.com)")
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             etEmail.error = "Formato inválido. Ejemplo: usuario@dominio.com"
             etEmail.requestFocus()
+            mostrarMensaje("El email debe tener un formato válido (ej: usuario@dominio.com)")
             return false
         }
 
-        // Validar teléfono
-        if (!cliente.telefonoEsValido()) {
-            mostrarMensaje("El teléfono debe tener al menos 9 dígitos")
-            etTelefono.error = "Mínimo 9 dígitos"
+        return true
+    }
+
+    /**
+     * Valida el teléfono (al menos 9 dígitos)
+     */
+    private fun validarTelefono(telefono: String): Boolean {
+        if (telefono.isBlank()) {
+            etTelefono.error = "El teléfono es obligatorio"
             etTelefono.requestFocus()
+            mostrarMensaje("Por favor, introduce un teléfono")
+            return false
+        }
+
+        // Extraer solo dígitos para validar
+        val soloDigitos = telefono.replace(Regex("[^0-9]"), "")
+
+        if (soloDigitos.length < 9) {
+            etTelefono.error = "Debe tener al menos 9 dígitos"
+            etTelefono.requestFocus()
+            mostrarMensaje("El teléfono debe contener al menos 9 dígitos")
             return false
         }
 

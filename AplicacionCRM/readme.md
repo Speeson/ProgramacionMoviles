@@ -374,39 +374,57 @@ res/
 - **MaterialCardView** - Tarjetas de clientes
 - **AlertDialog** - Diálogos de confirmación
 
+### APIs de Android Utilizadas
+- **Patterns.EMAIL_ADDRESS** - Validación de emails con patrón oficial RFC 5322
+- **SQLiteOpenHelper** - Gestión de base de datos local
+- **SharedPreferences** - Almacenamiento de preferencias de usuario
+- **Intent** - Navegación entre Activities e integración con apps nativas
+
 ### Características de Kotlin
-- **Data Classes** - Modelo de datos limpio
-- **Extension Functions** - Código más expresivo
-- **Lambdas** - Callbacks simplificados
-- **Null Safety** - Prevención de errores
+- **Data Classes** - Modelo de datos limpio y conciso
+- **Extension Functions** - Código más expresivo y reutilizable
+- **Lambdas** - Callbacks y listeners simplificados
+- **Null Safety** - Prevención de errores NullPointerException
+- **String Methods** - `isNotBlank()`, `trim()`, `lowercase()` para validación y normalización
 
 ---
 
 ## 📝 Validaciones Implementadas
 
 ### Campo Nombre
-- ✅ No puede estar vacío
-- ✅ Mensaje: "Todos los campos son obligatorios"
+- ✅ Validación con `isNotBlank()` (método oficial de Kotlin)
+- ✅ No puede estar vacío ni contener solo espacios
+- ✅ Mensaje de error: "El nombre es obligatorio"
+- ✅ Toast: "Por favor, introduce un nombre válido"
 
 ### Campo Email
+- ✅ Validación con `Patterns.EMAIL_ADDRESS.matcher(email).matches()` (patrón oficial de Android)
 - ✅ No puede estar vacío
-- ✅ Debe tener formato válido: `usuario@dominio.extension`
-- ✅ Patrón regex: `[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}`
-- ✅ Acepta números en el dominio (ej: `user@server123.com`)
-- ✅ Mensaje: "El formato del email no es válido"
+- ✅ Debe tener formato válido según estándares RFC 5322
+- ✅ Mensaje de error en campo: "Formato inválido. Ejemplo: usuario@dominio.com"
+- ✅ Toast: "El email debe tener un formato válido (ej: usuario@dominio.com)"
+- ✅ **Normalización automática:** 
+  - Se convierte a minúsculas: `Juan@Email.COM` → `juan@email.com`
+  - Se eliminan espacios: `email@domain.com `
 
 ### Campo Teléfono
+- ✅ Validación: `telefono.trim().length >= 9` con solo dígitos
 - ✅ No puede estar vacío
-- ✅ Debe tener al menos 9 dígitos numéricos
-- ✅ Se ignoran caracteres no numéricos en la validación
-- ✅ Mensaje: "El teléfono debe tener al menos 9 dígitos"
+- ✅ Debe contener al menos 9 dígitos numéricos
+- ✅ Se extraen solo dígitos para validar (ignora espacios, guiones, paréntesis)
+- ✅ Mensaje de error en campo: "Debe tener al menos 9 dígitos"
+- ✅ Toast: "El teléfono debe contener al menos 9 dígitos"
+- ✅ **Normalización automática:**
+  - Se eliminan espacios: `612 345 678` → `612345678`
+  - Se eliminan guiones: `612-345-678` → `612345678`
 
-### Feedback de Validación
-- **Mensajes Toast** informativos
-- **Indicadores de error** en los campos
-- **Focus automático** en el campo con error
-- **Prevención** de guardado si hay errores
-
+### Características de las Validaciones
+- **setError()** - Muestra indicador visual en el campo con error
+- **requestFocus()** - Posiciona el cursor automáticamente en el campo erróneo
+- **Bloqueo de guardado** - Si falla alguna validación, NO se persiste el cliente
+- **Limpieza de errores** - Los errores previos se limpian antes de cada nueva validación
+- **Validaciones separadas** - Cada campo tiene su propia función de validación
+- **Mensajes descriptivos** - Feedback claro y útil para el usuario
 ---
 
 ## 🎨 Diseño y UX
@@ -504,15 +522,23 @@ Este proyecto es parte de una actividad educativa para el ciclo de Desarrollo de
 
 Este proyecto va más allá de los requisitos mínimos, implementando:
 
-- 🎨 **Diseño profesional** con tema personalizado
-- 🌙 **Modo oscuro completo** optimizado
-- ♿ **Accesibilidad mejorada** con modo zurdo
+- 🎨 **Diseño profesional** con tema personalizado negro y rojo
+- 🌙 **Modo oscuro completo** optimizado con colores adaptados
+- ♿ **Accesibilidad mejorada** con modo zurdo/diestro
 - 📞 **Integración con apps nativas** (teléfono y email)
 - 🎬 **Animaciones fluidas** en toda la aplicación
-- 💾 **20 clientes precargados** para demostración
-- 🔍 **Búsqueda en tiempo real** eficiente
-- ✅ **Validaciones completas** con feedback claro
-- 🎯 **Código limpio y documentado** siguiendo mejores prácticas
+- 💾 **20 clientes precargados** para demostración inmediata
+- 🔍 **Búsqueda en tiempo real** eficiente con filtrado instantáneo
+- ✅ **Validaciones robustas** usando APIs oficiales de Android:
+  - `Patterns.EMAIL_ADDRESS` para validación de emails (RFC 5322)
+  - `isNotBlank()` para validación de campos obligatorios
+  - Extracción de dígitos para validación de teléfonos
+- 🔄 **Normalización automática de datos**:
+  - Emails a minúsculas y sin espacios
+  - Teléfonos sin espacios ni guiones
+- 🎯 **Código limpio y documentado** siguiendo mejores prácticas y estándares de la industria
+- 📱 **Feedback visual claro** con `setError()` y mensajes descriptivos
+- 🚫 **Bloqueo inteligente** que previene guardar datos inválidos
 
 ---
 
