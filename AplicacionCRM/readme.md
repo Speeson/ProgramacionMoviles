@@ -30,7 +30,7 @@ El proyecto cumple con todos los requisitos funcionales solicitados, incluyendo 
 ### Paso 1: Clonar o Descargar el Proyecto
 ```bash
 # Si usas Git
-git clone <url-del-repositorio>
+git clone https://github.com/Speeson/ProgramacionMoviles/tree/master/AplicacionCRM
 
 # O descarga el archivo ZIP y descomprímelo
 ```
