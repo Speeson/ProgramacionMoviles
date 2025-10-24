@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Base.Theme.AplicacionCRM" parent="Theme.Material3.Dark.NoActionBar">
+        <!-- Color primario: NEGRO para toolbar -->
+        <item name="colorPrimary">@color/negro_principal</item>
+        <item name="colorPrimaryVariant">@color/negro_oscuro</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <!-- Color secundario: ROJO para botones -->
+        <item name="colorSecondary">@color/rojo_principal</item>
+        <item name="colorSecondaryVariant">@color/rojo_oscuro</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <!-- Fondo oscuro -->
+        <item name="android:colorBackground">@color/fondo_oscuro</item>
+        <item name="colorSurface">@color/superficie_oscura</item>
+        <item name="colorOnSurface">@color/white</item>
+
+        <!-- FloatingActionButton en ROJO -->
+        <item name="floatingActionButtonStyle">@style/CustomFAB</item>
+    </style>
+
+    <style name="Theme.AplicacionCRM" parent="Base.Theme.AplicacionCRM" />
+
+    <!-- Estilo personalizado para el FAB (ROJO) -->
+    <style name="CustomFAB" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="backgroundTint">@color/rojo_principal</item>
+        <item name="tint">@color/white</item>
+    </style>
+</resources>

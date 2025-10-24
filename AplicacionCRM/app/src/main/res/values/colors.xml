@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Colores originales del sistema -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Color principal: NEGRO -->
+    <color name="negro_principal">#000000</color>
+    <color name="negro_oscuro">#000000</color>
+
+    <!-- Colores de acento: ROJO (para botones) -->
+    <color name="rojo_principal">#D32F2F</color>
+    <color name="rojo_oscuro">#B71C1C</color>
+    <color name="rojo_claro">#EF5350</color>
+    <color name="rojo_suave">#FFCDD2</color>
+
+    <!-- Colores neutros -->
+    <color name="gris_claro">#F5F5F5</color>
+    <color name="gris_texto">#757575</color>
+
+    <!-- Colores para modo oscuro -->
+    <color name="fondo_oscuro">#121212</color>
+    <color name="superficie_oscura">#1E1E1E</color>
+    <color name="texto_oscuro">#E0E0E0</color>
+
+    <!-- Color verde para botón email -->
+    <color name="verde_email">#4CAF50</color>
+</resources>
