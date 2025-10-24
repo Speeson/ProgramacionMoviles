@@ -28,6 +28,11 @@ class FormularioClienteActivity : AppCompatActivity() {
     private var modoEdicion = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Aplicar el tema guardado
+        com.dam.aplicacioncrm.utils.ThemePreference.applyTheme(
+            com.dam.aplicacioncrm.utils.ThemePreference.getThemeMode(this)
+        )
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_formulario_cliente)
 
@@ -137,6 +142,8 @@ class FormularioClienteActivity : AppCompatActivity() {
             val mensaje = if (modoEdicion) "Cliente actualizado" else "Cliente guardado"
             mostrarMensaje(mensaje)
             finish()
+            // Transición al volver después de guardar
+            overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
         } else {
             mostrarMensaje("Error al guardar el cliente")
         }
@@ -154,8 +161,8 @@ class FormularioClienteActivity : AppCompatActivity() {
 
         // Validar email
         if (!cliente.emailEsValido()) {
-            mostrarMensaje("El formato del email no es válido")
-            etEmail.error = "Email inválido"
+            mostrarMensaje("El email debe tener un formato válido (ej: usuario@dominio.com)")
+            etEmail.error = "Formato inválido. Ejemplo: usuario@dominio.com"
             etEmail.requestFocus()
             return false
         }
@@ -195,6 +202,8 @@ class FormularioClienteActivity : AppCompatActivity() {
             if (resultado > 0) {
                 mostrarMensaje("Cliente eliminado correctamente")
                 finish()
+                // Transición al volver después de eliminar
+                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
             } else {
                 mostrarMensaje("Error al eliminar el cliente")
             }

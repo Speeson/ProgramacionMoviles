@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Base.Theme.AplicacionCRM" parent="Theme.Material3.Dark.NoActionBar">
-        <!-- Color primario: NEGRO para toolbar -->
+        <!-- Color primario (barra superior, botones) -->
         <item name="colorPrimary">@color/negro_principal</item>
         <item name="colorPrimaryVariant">@color/negro_oscuro</item>
         <item name="colorOnPrimary">@color/white</item>
 
-        <!-- Color secundario: ROJO para botones -->
+        <!-- Color secundario -->
         <item name="colorSecondary">@color/rojo_principal</item>
         <item name="colorSecondaryVariant">@color/rojo_oscuro</item>
         <item name="colorOnSecondary">@color/white</item>
 
         <!-- Fondo oscuro -->
-        <item name="android:colorBackground">@color/fondo_oscuro</item>
-        <item name="colorSurface">@color/superficie_oscura</item>
+        <item name="android:colorBackground">#121212</item>
+        <item name="colorSurface">#1E1E1E</item>
         <item name="colorOnSurface">@color/white</item>
 
-        <!-- FloatingActionButton en ROJO -->
+        <!-- Color del texto en los EditText -->
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:textColorHint">#B0B0B0</item>
+
+        <!-- Color del cursor y selección de texto -->
+        <item name="colorControlActivated">@color/rojo_principal</item>
+        <item name="android:textCursorDrawable">@null</item>
+
+        <!-- FloatingActionButton -->
         <item name="floatingActionButtonStyle">@style/CustomFAB</item>
     </style>
 
     <style name="Theme.AplicacionCRM" parent="Base.Theme.AplicacionCRM" />
 
-    <!-- Estilo personalizado para el FAB (ROJO) -->
+    <!-- Estilo personalizado para el FAB -->
     <style name="CustomFAB" parent="Widget.Material3.FloatingActionButton.Primary">
         <item name="backgroundTint">@color/rojo_principal</item>
         <item name="tint">@color/white</item>

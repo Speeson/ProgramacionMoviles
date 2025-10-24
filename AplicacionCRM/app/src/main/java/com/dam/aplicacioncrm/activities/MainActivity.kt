@@ -7,12 +7,15 @@ import android.text.TextWatcher
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dam.aplicacioncrm.R
 import com.dam.aplicacioncrm.adapters.ClienteAdapter
 import com.dam.aplicacioncrm.database.DatabaseHelper
 import com.dam.aplicacioncrm.models.Cliente
+import com.dam.aplicacioncrm.utils.ThemePreference
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 
@@ -27,10 +30,18 @@ class MainActivity : AppCompatActivity() {
     private lateinit var etBuscar: TextInputEditText
     private lateinit var tvContador: TextView
     private lateinit var fabAgregar: FloatingActionButton
+    private lateinit var toolbar: Toolbar
+
+    // Switches del panel de configuración
+    private lateinit var switchTema: SwitchCompat
+    private lateinit var switchMano: SwitchCompat
 
     private var listaClientes = mutableListOf<Cliente>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Aplicar el tema guardado antes de setContentView
+        ThemePreference.applyTheme(ThemePreference.getThemeMode(this))
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -40,6 +51,12 @@ class MainActivity : AppCompatActivity() {
         // Inicializar vistas
         inicializarVistas()
 
+        // Configurar toolbar
+        setSupportActionBar(toolbar)
+
+        // Configurar switches del panel
+        configurarSwitches()
+
         // Configurar RecyclerView
         configurarRecyclerView()
 
@@ -48,6 +65,9 @@ class MainActivity : AppCompatActivity() {
 
         // Cargar clientes
         cargarClientes()
+
+        // Aplicar posición inicial del FAB según preferencia
+        actualizarPosicionFAB()
 
         // Configurar botón flotante
         fabAgregar.setOnClickListener {
@@ -63,6 +83,65 @@ class MainActivity : AppCompatActivity() {
         etBuscar = findViewById(R.id.etBuscar)
         tvContador = findViewById(R.id.tvContador)
         fabAgregar = findViewById(R.id.fabAgregarCliente)
+        toolbar = findViewById(R.id.toolbar)
+
+        // Switches del panel
+        switchTema = findViewById(R.id.switchTema)
+        switchMano = findViewById(R.id.switchMano)
+    }
+
+    /**
+     * Configura los switches del panel de configuración
+     */
+    private fun configurarSwitches() {
+        // Configurar switch de tema
+        switchTema.isChecked = ThemePreference.isDarkMode(this)
+
+        switchTema.setOnCheckedChangeListener { _, isChecked ->
+            val newMode = if (isChecked) {
+                ThemePreference.MODE_DARK
+            } else {
+                ThemePreference.MODE_LIGHT
+            }
+
+            ThemePreference.saveThemeMode(this, newMode)
+            recreate()
+        }
+
+        // Configurar switch de modo mano
+        // isChecked = true cuando es diestro (R), false cuando es zurdo (L)
+        val esZurdo = ThemePreference.isLeftHanded(this)
+        switchMano.isChecked = !esZurdo  // Si es zurdo (true), switch debe estar apagado (false)
+
+        switchMano.setOnCheckedChangeListener { _, isChecked ->
+            // isChecked = true significa switch hacia la derecha (R) = Diestro
+            // isChecked = false significa switch hacia la izquierda (L) = Zurdo
+            val newMode = if (isChecked) {
+                ThemePreference.HAND_RIGHT  // Switch a la derecha = Diestro
+            } else {
+                ThemePreference.HAND_LEFT   // Switch a la izquierda = Zurdo
+            }
+
+            ThemePreference.saveHandMode(this, newMode)
+            actualizarPosicionFAB()
+        }
+    }
+
+    /**
+     * Actualiza la posición del FloatingActionButton según preferencia
+     */
+    private fun actualizarPosicionFAB() {
+        val layoutParams = fabAgregar.layoutParams as androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams
+
+        if (ThemePreference.isLeftHanded(this)) {
+            // Modo zurdo: botón a la izquierda
+            layoutParams.gravity = android.view.Gravity.BOTTOM or android.view.Gravity.START
+        } else {
+            // Modo diestro: botón a la derecha
+            layoutParams.gravity = android.view.Gravity.BOTTOM or android.view.Gravity.END
+        }
+
+        fabAgregar.layoutParams = layoutParams
     }
 
     /**

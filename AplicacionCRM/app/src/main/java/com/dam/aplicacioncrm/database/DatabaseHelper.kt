@@ -40,6 +40,46 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         """.trimIndent()
 
         db?.execSQL(createTable)
+
+        // Insertar datos de ejemplo
+        insertarDatosEjemplo(db)
+    }
+
+    /**
+     * Inserta datos de ejemplo para demostración
+     */
+    private fun insertarDatosEjemplo(db: SQLiteDatabase?) {
+        val clientesEjemplo = listOf(
+            Triple("Juan Pérez García", "juan.perez@empresa.com", "612345678"),
+            Triple("María López Martínez", "maria.lopez@gmail.com", "623456789"),
+            Triple("Carlos Rodríguez Sánchez", "carlos.rodriguez@hotmail.com", "634567890"),
+            Triple("Ana Fernández Ruiz", "ana.fernandez@outlook.com", "645678901"),
+            Triple("David González Torres", "david.gonzalez@yahoo.com", "656789012"),
+            Triple("Laura Martín Jiménez", "laura.martin@empresa.com", "667890123"),
+            Triple("Pedro Sánchez Moreno", "pedro.sanchez@gmail.com", "678901234"),
+            Triple("Carmen Díaz Álvarez", "carmen.diaz@hotmail.com", "689012345"),
+            Triple("Miguel Romero Castro", "miguel.romero@outlook.com", "690123456"),
+            Triple("Isabel Navarro Gil", "isabel.navarro@empresa.com", "601234567"),
+            Triple("Roberto Jiménez Morales", "roberto.jimenez@empresa.com", "611223344"),
+            Triple("Sofía Herrera Vega", "sofia.herrera@gmail.com", "622334455"),
+            Triple("Francisco Ortiz Ramírez", "francisco.ortiz@hotmail.com", "633445566"),
+            Triple("Elena Vargas Medina", "elena.vargas@outlook.com", "644556677"),
+            Triple("Antonio Castillo Ramos", "antonio.castillo@yahoo.com", "655667788"),
+            Triple("Lucía Iglesias Molina", "lucia.iglesias@empresa.com", "666778899"),
+            Triple("Javier Domínguez Cruz", "javier.dominguez@gmail.com", "677889900"),
+            Triple("Marta Rubio Delgado", "marta.rubio@hotmail.com", "688990011"),
+            Triple("Sergio Pascual Blanco", "sergio.pascual@outlook.com", "699001122"),
+            Triple("Cristina Vidal Serrano", "cristina.vidal@empresa.com", "600112233")
+        )
+
+        clientesEjemplo.forEach { (nombre, email, telefono) ->
+            val values = ContentValues().apply {
+                put(COLUMN_NOMBRE, nombre)
+                put(COLUMN_EMAIL, email)
+                put(COLUMN_TELEFONO, telefono)
+            }
+            db?.insert(TABLE_CLIENTES, null, values)
+        }
     }
 
     /**

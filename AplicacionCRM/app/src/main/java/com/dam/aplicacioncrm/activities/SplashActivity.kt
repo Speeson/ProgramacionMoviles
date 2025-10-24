@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.dam.aplicacioncrm.R
+import com.dam.aplicacioncrm.utils.ThemePreference
 
 /**
  * Activity de bienvenida con animación que se muestra al iniciar la app
@@ -26,6 +27,11 @@ class SplashActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Aplicar el tema guardado
+        ThemePreference.applyTheme(
+            ThemePreference.getThemeMode(this)
+        )
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 

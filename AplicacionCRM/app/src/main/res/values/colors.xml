@@ -25,4 +25,9 @@
 
     <!-- Color verde para botón email -->
     <color name="verde_email">#4CAF50</color>
+
+    <!-- Colores de texto adaptativos -->
+    <color name="texto_titulo">#000000</color>
+    <color name="texto_campo">#000000</color>
+    <color name="texto_hint">#757575</color>
 </resources>

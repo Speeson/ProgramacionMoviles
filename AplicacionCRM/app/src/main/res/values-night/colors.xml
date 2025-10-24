@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Colores para modo oscuro -->
+    <color name="texto_titulo">#FFFFFF</color>
+    <color name="texto_campo">#FFFFFF</color>
+    <color name="texto_hint">#B0B0B0</color>
+</resources>
