@@ -33,9 +33,12 @@ La aplicación presenta una temática dark/hacker con:
 
 ### Instrucciones de Instalación
 
-1. **Descargar el proyecto**
-   - Descarga el archivo ZIP del proyecto
-   - Descomprímelo en una carpeta de tu elección
+1. **Clonar o Descargar el Proyecto**
+   - Si usas Git
+   ```bash
+    git clone https://github.com/Speeson/ProgramacionMoviles/tree/master/Act02Eva01/AplicacionCRM
+   ```
+   - Sino, descarga el archivo ZIP, Descomprímelo en una carpeta de tu elección
 
 2. **Abrir en Android Studio**
    - Inicia Android Studio
