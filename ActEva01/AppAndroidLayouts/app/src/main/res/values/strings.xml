@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">MiPresentaciónApp</string>
+
+    <!-- MainActivity -->
+    <string name="logo_app">Logo de la aplicación</string>
+    <string name="bienvenido">Bienvenido a Fsociety</string>
+    <string name="subtitulo_main">Conoce más sobre mí y contacta conmigo</string>
+    <string name="ir_presentacion">Accede a mis datos</string>
+
+    <!-- PresentacionActivity -->
+    <string name="mi_presentacion">¿Quién soy yo?</string>
+    <string name="nombre">Nombre</string>
+    <string name="nombre_ejemplo">45 73 74 65 62 61 6e 20 47 61 72 63 65 73 20 50 65 72 65 7a</string>
+    <string name="edad">EDAD</string>
+    <string name="edad_ejemplo">33 33 20 61 c3 b1 6f 73</string>
+    <string name="sobre_mi">Sobre mí</string>
+    <string name="descripcion_ejemplo">Soy estudiante de Desarrollo de Aplicaciones Multiplataforma con pasión por la programación móvil. Me encanta aprender nuevas tecnologías y crear aplicaciones que solucionen problemas reales. En mi tiempo libre me informo sobre Ciberseguridad y me encanta el Hexadecimal.</string>
+    <string name="ir_formulario">Contáctame</string>
+
+    <!-- FormularioActivity -->
+    <string name="formulario_contacto">Formulario de Contacto</string>
+    <string name="subtitulo_formulario">Completa el formulario para enviarme un mensaje</string>
+    <string name="correo">Correo electrónico</string>
+    <string name="mensaje">Mensaje</string>
+    <string name="hint_nombre">Introduce tu nombre completo</string>
+    <string name="hint_correo">ejemplo@correo.com</string>
+    <string name="hint_mensaje">Escribe aquí tu mensaje...</string>
+    <string name="enviar">Enviar mensaje</string>
+</resources>
