@@ -36,7 +36,7 @@ La aplicación presenta una temática dark/hacker con:
 1. **Clonar o Descargar el Proyecto**
    - Si usas Git
    ```bash
-    git clone https://github.com/Speeson/ProgramacionMoviles/tree/master/Act02Eva01/AplicacionCRM
+    git clone https://github.com/Speeson/ProgramacionMoviles/edit/master/Act01Eva01/AppAndroidLayouts
    ```
    - Sino, descarga el archivo ZIP, Descomprímelo en una carpeta de tu elección
 
